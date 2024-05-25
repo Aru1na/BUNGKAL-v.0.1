@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Inventory_UI : MonoBehaviour
+public class Inventory_UI : MonoBehaviour, IPointerClickHandler
 {
     public Player player;
     public GameObject inventoryPanel;
@@ -30,18 +32,41 @@ public class Inventory_UI : MonoBehaviour
 
     void Setup(){
         int x = 0;
-
-        for (int i = 0; i<slots.Count; i++){
-            while(x<player.compiler.artifactNew.Count){
-                if (player.compiler.artifactNew[x].type != CollectableType.NONE){
-                    slots[x].SetItem(player.compiler.artifactNew[x]);
-                    Debug.Log("Hello");
-                } 
-                x++;
-            }
+        while(x<player.compiler.artifactNew.Count){
+            if (player.compiler.artifactNew[x].type != CollectableType.NONE){
+                slots[x].SetItem(player.compiler.artifactNew[x]);
+                slots[x].OnItemClicked += HandleItemSelect;
+                slots[x].OnRightMouseBtnClick += HandleShowItemActions;
+                Debug.Log("Hello");
+            } 
+            x++;
+        }
+        for (int i = x; i<slots.Count; i++){
             if (slots[i].empty == true){
-                slots[i].gameObject.SetActive(false);
+                slots[i].Hide();
             }
         }
+    }
+
+    private void HandleShowItemActions(Slots_UI uI)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void HandleItemSelect(Slots_UI uI)
+    {
+        Debug.Log(uI.artNew.artifact_name);
+
+    }
+
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        throw new System.NotImplementedException();
     }
 }
