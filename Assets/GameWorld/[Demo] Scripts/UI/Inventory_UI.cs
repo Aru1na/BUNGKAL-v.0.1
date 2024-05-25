@@ -43,6 +43,5 @@ public class Inventory_UI : MonoBehaviour
                 slots[i].gameObject.SetActive(false);
             }
         }
-
     }
 }
