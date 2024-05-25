@@ -29,12 +29,20 @@ public class Inventory_UI : MonoBehaviour
     }
 
     void Setup(){
-        for (int x = 0; x<player.compiler.artifactNew.Count; x++){
-            if (player.compiler.artifactNew[x].type != CollectableType.NONE){
-                slots[x].SetItem(player.compiler.artifactNew[x]);
-            } else {
-                slots[x].SetEmpty();
+        int x = 0;
+
+        for (int i = 0; i<slots.Count; i++){
+            while(x<player.compiler.artifactNew.Count){
+                if (player.compiler.artifactNew[x].type != CollectableType.NONE){
+                    slots[x].SetItem(player.compiler.artifactNew[x]);
+                    Debug.Log("Hello");
+                } 
+                x++;
+            }
+            if (slots[i].empty == true){
+                slots[i].gameObject.SetActive(false);
             }
         }
+
     }
 }
