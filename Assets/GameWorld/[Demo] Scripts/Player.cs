@@ -6,31 +6,27 @@ using System;
 using TMPro;
 
 
-[System.Serializable]
-public class Person
-{
-    public String username;
-    public int heatlhPoints;
-}
 public class Player : MonoBehaviour
 {
     public TMP_InputField ipnf;
-    [System.Serializable]
-    public class ArtifactList
-    {
-        public List<Artifacts> artifactNew = new List<Artifacts>();
-    }
-    //This is the inventory
+    public Compile compiler = new Compile();
 
 
     [System.Serializable]
     public class Compile
     {
-        public Person personInfo = new Person();
-        public ArtifactList ArtInfo = new ArtifactList();
+        public String username;
+        public int heatlhPoints;
+        public List<Artifacts> artifactNew = new List<Artifacts>();
     }
-    public Compile compiler = new Compile();
     
+    
+    public void AddArtifact(Artifacts newArtifact)
+    {
+        Debug.Log("Added artifact: "+newArtifact.artifact_name);
+        compiler.artifactNew.Add(newArtifact); 
+    }
+
     
 
 }

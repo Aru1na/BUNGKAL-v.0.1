@@ -1,19 +1,24 @@
 
 
 using Unity.VisualScripting;
+using UnityEngine;
 
 [System.Serializable]
 
 public class Artifacts
 {
-    public Artifacts(string artName, int artId, int dura, int dmg)
+    public Artifacts(string artName, int artId, int dura, int dmg, CollectableType typeR, Sprite iconR)
     {
         artifact_name = artName;
         art_id = artId;
         durability = dura;
         damage = dmg;
+        type = typeR;
+        icon = iconR;
     }
 
+    public Sprite icon {get; set;}
+    public CollectableType type {get; set;}
     public string artifact_name { get; set; }
     public int art_id { get; set; }
     public int durability { get; set;}

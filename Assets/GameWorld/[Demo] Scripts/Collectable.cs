@@ -1,20 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Collectable : MonoBehaviour
 {        
-    [SerializeField] public GameObject attributesModify;
+    public CollectableType type;
+    public Sprite icon;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Artifacts newArtifact = new Artifacts("Something", 1, 100, 100);
-        AttributeModifier modify = attributesModify.GetComponent<AttributeModifier>();
         Player player = collision.GetComponent<Player>();
         if (player)
         {
-            modify.AddArtifact("Hello", 1, 100, 100);
+            Artifacts art = new Artifacts(type.ToString(), 1, 100, 100, type, icon);
+            player.AddArtifact(art);
             Destroy(this.gameObject);
         }
     }
     //When a player comes across this object, it will do the action that is specified above
+}
+
+public enum CollectableType{
+    NONE, CHAIR, SWORD
 }
