@@ -4,16 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
+using TMPro;
 public class Inventory_UI : MonoBehaviour, IPointerClickHandler
 {
     public Player player;
     public GameObject inventoryPanel;
     public List<Slots_UI> slots = new List<Slots_UI>();
+    void Start(){
+        inventoryPanel.SetActive(false);
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {   
+            resetDescription();
             ToggleInventory();
         }
     }
@@ -30,24 +34,47 @@ public class Inventory_UI : MonoBehaviour, IPointerClickHandler
         inventoryPanel.SetActive(false);
     }
 
-    void Setup(){
-        int x = 0;
-        while(x<player.compiler.artifactNew.Count){
-            if (player.compiler.artifactNew[x].type != CollectableType.NONE){
-                slots[x].SetItem(player.compiler.artifactNew[x]);
-                slots[x].OnItemClicked += HandleItemSelect;
-                slots[x].OnRightMouseBtnClick += HandleShowItemActions;
-                Debug.Log("Hello");
-            } 
-            x++;
+    void Setup()
+{
+    int x = 0;
+    while (x < player.compiler.artifactNew.Count)
+    {
+        var artifact = player.compiler.artifactNew[x];
+        if (artifact != null && artifact.type != CollectableType.NONE)
+        {
+            slots[x].SetItem(artifact);
+            slots[x].OnItemClicked += HandleItemSelect;
+            slots[x].OnRightMouseBtnClick += HandleShowItemActions;
+            Debug.Log("Setup: Added artifact: " + artifact.artifact_name);
         }
-        for (int i = x; i<slots.Count; i++){
-            if (slots[i].empty == true){
-                slots[i].Hide();
-            }
+        else
+        {
+            Debug.LogWarning("Setup: Found null or NONE type artifact at index " + x);
+        }
+        x++;
+    }
+    for (int i = x; i < slots.Count; i++)
+    {
+        if (slots[i].empty == true)
+        {
+            slots[i].Hide();
         }
     }
+}
 
+    public TMP_Text title;
+    public TMP_Text descriptionText;
+    public Image iconUI;
+    private void resetDescription(){
+        title.text = "";
+        descriptionText.text = "";
+        iconUI.sprite = null;
+    }
+    private void setDescription(Artifacts art){
+        title.text = art.artifact_name;
+        iconUI.sprite = art.icon;
+        Debug.Log("success");
+    }
     private void HandleShowItemActions(Slots_UI uI)
     {
         throw new NotImplementedException();
@@ -55,7 +82,14 @@ public class Inventory_UI : MonoBehaviour, IPointerClickHandler
 
     private void HandleItemSelect(Slots_UI uI)
     {
-        Debug.Log(uI.artNew.artifact_name);
+        if (uI.artNew != null)
+        {
+            setDescription(uI.artNew);
+        }
+        else
+        {
+            Debug.LogError("Selected item is null.");
+        }
 
     }
 

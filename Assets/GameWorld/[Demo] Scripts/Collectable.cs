@@ -20,5 +20,5 @@ public class Collectable : MonoBehaviour
     //When a player comes across this object, it will do the action that is specified above
 }
 public enum CollectableType{
-    NONE, CHAIR, SWORD
+    NONE, STONE, CHICKEN
 }
