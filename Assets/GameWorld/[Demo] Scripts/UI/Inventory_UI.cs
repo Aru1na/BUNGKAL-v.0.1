@@ -72,8 +72,8 @@ public class Inventory_UI : MonoBehaviour, IPointerClickHandler
     }
     private void setDescription(Artifacts art){
         title.text = art.artifact_name;
+        descriptionText.text = art.description;
         iconUI.sprite = art.icon;
-        Debug.Log("success");
     }
     private void HandleShowItemActions(Slots_UI uI)
     {

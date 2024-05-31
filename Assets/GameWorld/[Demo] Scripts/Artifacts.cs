@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Artifacts
 {
-    public Artifacts(string artName, int artId, int dura, int dmg, CollectableType typeR, Sprite iconR)
+    public Artifacts(string artName, int artId, int dura, int dmg, CollectableType typeR, Sprite iconR, string descripR)
     {
         artifact_name = artName;
         art_id = artId;
@@ -15,8 +15,10 @@ public class Artifacts
         damage = dmg;
         type = typeR;
         icon = iconR;
+        description = descripR;
     }
 
+    public string description {get; set;}
     public Sprite icon {get; set;}
     public CollectableType type {get; set;}
     public string artifact_name { get; set; }
