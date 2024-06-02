@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 1163851559534296913}
   - component: {fileID: 7883722148880304269}
   m_Layer: 0
-  m_Name: Artifact_Object
+  m_Name: Question
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -157,12 +157,12 @@ SpriteRenderer:
   m_SortingLayerID: -1663801369
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1560784008, guid: f76bc1d96b3b09e44a5bef3d91c4f7be, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dbf3bbf5e2ab57a4683ace1a8d47c329, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.9375, y: 1}
+  m_Size: {x: 1.48, y: 0.62}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -180,7 +180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce5e43b3942bc8148a6468cdebe8f81d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
+  type: 1
   icon: {fileID: -1560784008, guid: f76bc1d96b3b09e44a5bef3d91c4f7be, type: 3}
-  Description: Trying something
-  PlayerObj: {fileID: 0}
+  Description: Question Box

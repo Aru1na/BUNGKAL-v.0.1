@@ -16,10 +16,11 @@ public class AuthManager : MonoBehaviour
     //public GameObject LocalFile;
     public TMP_InputField username;
     public TMP_InputField password;
-
+    private CloudSaveScript cloud;
     bool canLogin = false;
     public async void Start(){
         await UnityServices.InitializeAsync();
+        cloud = CloudObject.GetComponent<CloudSaveScript>();
     }
 
     public IEnumerator GetData_Coroutine(Action callback)
@@ -54,41 +55,54 @@ public class AuthManager : MonoBehaviour
             }
         }
     }
-
-    private void GetDataCallback()
+    public IEnumerator RegisterData_Coroutine(Action callback)
     {
-        loginTask(); // Call loginTask after GetData_Coroutine completes
-    }
-   public IEnumerator PostData_Coroutine(){
-        string URL = "http://localhost/bungkal/leaderboardsSelect.php";
-
-        int userID = 1;
-        int art_ID = 1;
-        string ArtifactName = "CHICKEN";
-        int point = 10;
-
+        string name = username.text;
+        string pass = password.text;
         WWWForm form = new WWWForm();
-        form.AddField("userID", userID);
-        form.AddField("art_ID", art_ID);
-        form.AddField("art_Name", ArtifactName);
-        form.AddField("points", point);
-
-        using (UnityWebRequest users = UnityWebRequest.Post(URL, form)){
+        form.AddField("username", name);
+        form.AddField("password", pass);
+        string URL = "http://localhost/bungkal/register.php";
+        using (UnityWebRequest users = UnityWebRequest.Post(URL, form))
+        {
             yield return users.SendWebRequest();
-            if (users.result == UnityWebRequest.Result.ConnectionError || users.result == UnityWebRequest.Result.ProtocolError){
-                //outputArea.text = users.error;
-            }else{
-                Debug.Log(users.downloadHandler.text);
-                // Handle the response if needed
+            if (users.result == UnityWebRequest.Result.ConnectionError)
+            {
+                status.text = users.downloadHandler.text;
+            }
+            else if (users.downloadHandler.text == "Error101")
+            {
+                status.text = "Player username already registered";
+            }
+            else
+            {
+                status.text = users.downloadHandler.text;
+                StaticData.SaveID(Int32.Parse(users.downloadHandler.text));
+                StaticData.SaveName(name);
+                callback();
             }
         }
-    } //Testing to check leaderboarding
-    public async void Register(){
+    }
+    public void Register()
+    {
+        StartCoroutine(RegisterData_Coroutine(GetDataCallbackRegister));
+    }
+
+    private void GetDataCallbackRegister()
+    {
+        RegisterTask();
+    }
+    public async void RegisterTask(){
         await SignUpWithUsernamePasswordAsync();
     }
 
-    public void Login(){ //public void async Login()
-        StartCoroutine(GetData_Coroutine(GetDataCallback));
+    public void Login(){ 
+        StartCoroutine(GetData_Coroutine(GetDataCallbackLogin));
+    }
+
+    private void GetDataCallbackLogin()
+    {
+        loginTask(); // Call loginTask after GetData_Coroutine completes
     }
 
     public async void loginTask(){
@@ -99,14 +113,13 @@ public class AuthManager : MonoBehaviour
             status.text = "Try logging in again";
         }
     }
-    public void PostData(){
-        StartCoroutine(PostData_Coroutine());
-    }
     async Task SignUpWithUsernamePasswordAsync()
         {
         try
         {
             await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username.text, password.text);
+            await cloud.exportBlank();
+            SceneManager.LoadScene("GameWorld");
             Debug.Log("Successfully signed up! Username: "+username.text);
         }
         catch (AuthenticationException ex)
@@ -122,11 +135,10 @@ public class AuthManager : MonoBehaviour
         {
             await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(username.text, password.text);
             Debug.Log("SignIn is successful! Username: "+username.text);
-            //CloudSaveScript cloud = CloudObject.GetComponent<CloudSaveScript>();
-            //cloud.GetPlayerFile();
             Debug.Log("Login Successful: Cloud Database");
+            cloud.import();
             //LocalFileSave Local = LocalFile.GetComponent<LocalFileSave>();
-            //Local.OutputJSON(); FILE SAVE TO LOCAL
+            //Local.OutputJSON(); FILE SAVE TO LOCAL //Changed to On-Login action
         }
         catch (AuthenticationException ex)
         {

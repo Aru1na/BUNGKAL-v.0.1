@@ -9,19 +9,25 @@ public class LocalFileSave : MonoBehaviour
 {
     public TextAsset jsonText;
     public GameObject PlayerFile;
-    public void OutputJSON()
+    private Player player;
+    void Start()
     {
-        Player player = PlayerFile.GetComponent<Player>(); //isaiah gameobject
+        player = PlayerFile.GetComponent<Player>();
+    }
+    public void export()
+    {
+        Debug.Log("Player saving: " + player.compiler.username);
         string strOutput = JsonUtility.ToJson(player.compiler); //string = isaiah.text
         File.WriteAllText(Application.dataPath + "/PlayerFile.json", strOutput); //file = string
         Debug.Log("Local Player File successfully imported to Unity Player Attributes");
     }
 
-    public void InputJSON()
+    public void import()
     {
-        Player player = PlayerFile.GetComponent<Player>();
+        Debug.Log("Local");
         player.compiler = JsonUtility.FromJson<Player.Compile>(jsonText.text);
-        Debug.Log("Unity Player Attributes successfully imported to Local Player File");
+        //Debug.Log("Unity Player Attributes successfully imported to Local Player File");
+        //THIS SHOULD BE TASK 2
     }
 }
 

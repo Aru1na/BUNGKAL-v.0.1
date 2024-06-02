@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class OnLogin : MonoBehaviour
 {
-    void Start(){
-        
+    public GameObject _saving;
+
+    void Start()
+    {
+        Saving save = _saving.GetComponent<Saving>();
+        save.import();
     }
 }

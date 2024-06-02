@@ -5,17 +5,32 @@ using UnityEngine;
 
 public class Collectable : MonoBehaviour
 {        
+    public int artID;
     public CollectableType type;
     public Sprite icon;
+    public string artifactName;
     public string Description;
+    public int points = 0;
+    public void QuestionBox()
+    {
+
+    }
     public void grabArtifact(){
-        Player player = FindObjectOfType<Player>();
-        Artifacts art = new Artifacts(type.ToString(), 1, 100, 100, type, icon, Description);
-        player.AddArtifact(art);
-        Destroy(this.gameObject);
+        if (type == CollectableType.QUESTION){
+            Debug.Log("Question Type");
+            Destroy(this.gameObject);
+        }else if (type == CollectableType.NONE) {
+            Debug.Log("No item");
+            Destroy(this.gameObject);
+        } else {
+            Player player = FindObjectOfType<Player>();
+            Artifacts art = new Artifacts(artID, artifactName, type, icon, Description, points);
+            player.AddArtifact(art);
+            Destroy(this.gameObject);
+        }
     }
     //When a player comes across this object, it will do the action that is specified above
 }
 public enum CollectableType{
-    NONE, STONE, CHICKEN
+    NONE, QUESTION, SUNGKA, BALISONG, MAQUINA_DE_MANO, CANDELABRUM
 }

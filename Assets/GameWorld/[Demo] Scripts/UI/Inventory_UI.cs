@@ -45,7 +45,7 @@ public class Inventory_UI : MonoBehaviour, IPointerClickHandler
             slots[x].SetItem(artifact);
             slots[x].OnItemClicked += HandleItemSelect;
             slots[x].OnRightMouseBtnClick += HandleShowItemActions;
-            Debug.Log("Setup: Added artifact: " + artifact.artifact_name);
+            //Debug.Log("Setup: Added artifact: " + artifact.artifact_name);
         }
         else
         {
