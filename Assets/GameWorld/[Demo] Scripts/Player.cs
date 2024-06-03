@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
         compiler.artifactNew.Add(newArtifact); 
         Debug.Log("Added artifact: "+newArtifact.artifact_name);
         save.export();
-        lead.PostScore(compiler.userID, newArtifact);
+        lead.PostScore(compiler.userID, compiler.username, newArtifact);
     }
 }
     //Compiler of user properties and its inventory of artifacts

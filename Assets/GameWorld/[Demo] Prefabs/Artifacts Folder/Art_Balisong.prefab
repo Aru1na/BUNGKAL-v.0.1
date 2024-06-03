@@ -180,8 +180,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce5e43b3942bc8148a6468cdebe8f81d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  artID: 0
   type: 3
   icon: {fileID: -1560784008, guid: f76bc1d96b3b09e44a5bef3d91c4f7be, type: 3}
   artifactName: Balisong
   Description: 'Balisong means "Broken horn". Bali means "to break" and song means
     "horn". The art of Balisong making started in Batangas, Philippines, around 1905. '
+  points: 20

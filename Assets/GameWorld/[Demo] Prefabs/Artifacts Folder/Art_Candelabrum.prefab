@@ -186,4 +186,4 @@ MonoBehaviour:
   artifactName: Candelabrum
   Description: A candle holder that can hold five taper/candles with wooden spiral
     handle and a brass and wood base.
-  points: 0
+  points: 10

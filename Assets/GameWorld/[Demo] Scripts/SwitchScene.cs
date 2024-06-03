@@ -8,4 +8,8 @@ public class SwitchScene : MonoBehaviour
     public void SwitchLogin(){
         SceneManager.LoadScene("Login");
     }
+
+    public void SwitchLeaderboard(){
+        SceneManager.LoadScene("Leaderboards");
+    }
 }
