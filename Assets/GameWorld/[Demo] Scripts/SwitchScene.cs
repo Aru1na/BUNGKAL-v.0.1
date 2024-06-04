@@ -12,4 +12,11 @@ public class SwitchScene : MonoBehaviour
     public void SwitchLeaderboard(){
         SceneManager.LoadScene("Leaderboards");
     }
+    public void SwitchMain(){
+        SceneManager.LoadScene("Mainscreen");
+    }
+
+    public void exit(){
+        Application.Quit();
+    }
 }

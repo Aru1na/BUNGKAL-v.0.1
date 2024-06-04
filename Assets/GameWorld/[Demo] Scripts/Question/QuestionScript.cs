@@ -44,10 +44,12 @@ public class QuestionScript : MonoBehaviour
     }
 
     public void correctAnswer(){
+        _questionPanel.SetActive(false);
         Debug.Log("Correct Answer!");
     }
 
     public void wrongAnswer(){
+        _questionPanel.SetActive(false);
         Debug.Log("Wrong answer!");
     }
 

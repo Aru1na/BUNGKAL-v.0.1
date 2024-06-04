@@ -41,7 +41,7 @@ public class AuthManager : MonoBehaviour
             else if (users.result == UnityWebRequest.Result.Success)
             {
                 status.text = users.downloadHandler.text;
-                if (users.downloadHandler.text == "1"){
+                if (users.downloadHandler.text == "Successfully logged in, wait for a moment"){
                     Debug.Log("Correct Username and Password");
                     canLogin = true;
                     callback();
@@ -154,17 +154,21 @@ public class AuthManager : MonoBehaviour
         }
     }
     
-/*   
-async Task SignOut()
-    {
-        try
+    public void SignOut()
         {
-            AuthenticationService.Instance.SignOut(true);
-        }catch (Exception e){
-            Debug.Log(e);
+            try
+            {
+                AuthenticationService.Instance.SignOut(true);
+            }catch (Exception e){
+                Debug.Log(e);
+            }
         }
-    }//STILL ON GOING PROCESS OF LOGOUT SCREEN
+        //STILL ON GOING PROCESS OF LOGOUT SCREEN
+}
 
+
+
+/*
  async Task SignInAnonymous(){
         try{
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
@@ -176,7 +180,7 @@ async Task SignOut()
         }
     }*/
     //ONLY USE WHEN DOING A DEMO
-}
+
 
 
 //This is where the user authenticates themselves. Though, this will be modified on the final version of the app. Still a work in progress but it works
