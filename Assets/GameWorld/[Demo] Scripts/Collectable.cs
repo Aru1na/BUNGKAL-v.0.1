@@ -5,18 +5,20 @@ using UnityEngine;
 
 public class Collectable : MonoBehaviour
 {        
+    private QuestionScript _question;
     public int artID;
     public CollectableType type;
     public Sprite icon;
     public string artifactName;
     public string Description;
     public int points = 0;
-    public void QuestionBox()
-    {
 
+    void Start(){
+        _question = FindObjectOfType<QuestionScript>();
     }
     public void grabArtifact(){
         if (type == CollectableType.QUESTION){
+            _question.generateQuestion();
             Debug.Log("Question Type");
             Destroy(this.gameObject);
         }else if (type == CollectableType.NONE) {
